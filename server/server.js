@@ -10,7 +10,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use(require('./routes/usuario'));
-console.log(process.env.URLDB);
+
 mongoose.connect(process.env.URLDB, (err, res) => {
     if (err) throw err;
     console.log('Base de datos ONLINE');
