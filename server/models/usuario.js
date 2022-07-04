@@ -8,38 +8,19 @@ let rolesValidos = {
 }
 
 let usuarioSchema = new Schema({
-    nombre: {
-        type: String,
-        required: [true, 'El nombre es necesario']
-    },
-    email: {
-        type: String,
-        required: [true, 'El correo es necesario'],
-        unique: true
-    },
-    password: {
-        type: String,
-        required: [true, 'La contraseña es obligatoria']
-    },
-    img: {
-        type: String,
-        required: false
-    },
-    role: {
-        type: String,
-        default: 'USER_ROLE',
-        enum: rolesValidos
-    },
-    estado: {
-        type: Boolean,
-        default: true
-    },
-    google: {
-        type: Boolean,
-        default: false
-    }
+    nombre: { type: String, required: [true, 'El nombre es necesario'] },
+    email: { type: String, required: [true, 'El correo es necesario'], unique: true },
+    password: { type: String, required: [true, 'La contraseña es obligatoria'] },
+    img: { type: String, required: false },
+    role: { type: String, default: 'USER_ROLE', enum: rolesValidos },
+    estado: { type: Boolean, default: true },
+    google: { type: Boolean, default: false }
 });
 
+
+//=================
+//Para eliminar el campo Password cada vez que se presenta o se requiere el modelo
+//=================
 usuarioSchema.methods.toJSON = function() {
     let user = this;
     let userObject = user.toObject();
