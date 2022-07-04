@@ -8,6 +8,7 @@ const usuario = require('../models/usuario');
 const client = new OAuth2Client(process.env.CLIENT_ID);
 
 app.post('/login', (req, res) => {
+    console.log(req.body);
     let body = req.body;
     Usuario.findOne({ email: body.email }, (err, usuarioDB) => {
         if (err) {
