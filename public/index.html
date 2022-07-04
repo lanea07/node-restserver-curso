@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google SignIn Demo</title>
+    <script src="https://accounts.google.com/gsi/client"></script>
+    <script>
+        function handleCredentialResponse(response) {
+            var id_token = response.credential;
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/google');
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr.onload = () => {
+                console.log('Signed in as : ' + xhr.responseText);
+            };
+            xhr.send('idtoken=' + id_token);
+        }
+        window.onload = function() {
+            google.accounts.id.initialize({
+                client_id: "99692197614-4siijea5viqlc2t9373h730encq479pb.apps.googleusercontent.com",
+                callback: handleCredentialResponse
+            });
+            google.accounts.id.renderButton(
+                document.getElementById("buttonDiv"), {
+                    theme: "outline",
+                    size: "large"
+                } // customization attributes
+            );
+            google.accounts.id.prompt(); // also display the One Tap dialog
+        }
+    </script>
+
+
+</head>
+
+<body>
+    <div id="buttonDiv" class="g_id_signout"></div>
+    <button id="signout_button">Salir</button>
+    <!-- <button onclick="client.requestCode();">Authorize with Google</button> -->
+    <!-- <div id="g_id_onload"
+     data-client_id="lanea07@outlook.com"
+     data-context="use"
+     data-ux_mode="popup"
+     data-login_uri="localhost"
+     data-auto_prompt="false">
+</div>
+
+<div class="g_id_signin"
+     data-type="standard"
+     data-shape="pill"
+     data-theme="outline"
+     data-text="$ {button.text}"
+     data-size="medium"
+     data-locale="es-419"
+     data-logo_alignment="left"> -->
+    </div>
+    <script>
+        const button = document.getElementById('signout_button');
+        button.onclick = () => {
+            google.accounts.id.disableAutoSelect()
+            google.accounts.id.revoke('lanea07@gmail.com', done => {
+                console.log('consent revoked');
+            });
+        }
+    </script>
+</body>
+
+</html>
